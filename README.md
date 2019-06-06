@@ -61,6 +61,34 @@ If you use **`*`**, composer will install the version from the package repositor
 
 *Be aware that `composer update` will only work if you change the `version` in the package repository. Decreasing the version only works if you require an [exact version][composer-versions].*
 
+**4. Load ACF in Theme**
+
+With thanks to janman22 at https://discourse.roots.io/t/include-advanced-custom-fields-in-sage-9/10267/5?u=jasperfrumau
+
+```php
+/**
+ * Customize ACF dir
+ */
+add_filter('acf/settings/dir', function ( $dir ) {
+
+    $dir = get_stylesheet_directory_uri() . '/../vendor/advanced-custom-fields/advanced-custom-fields-pro/';
+
+    return $dir;
+
+});
+
+/**
+ * Hide ACF field group menu item
+ */
+// add_filter('acf/settings/show_admin', '__return_false');
+
+/**
+ * include ACF
+ */
+include_once( get_stylesheet_directory() . '/../vendor/advanced-custom-fields/advanced-custom-fields-pro/acf.php' );
+```
+
+
 [composer-repositories]: https://getcomposer.org/doc/04-schema.md#repositories
 [composer-versions]: https://getcomposer.org/doc/articles/versions.md
 [package-gist]: https://gist.github.com/fThues/705da4c6574a4441b488
